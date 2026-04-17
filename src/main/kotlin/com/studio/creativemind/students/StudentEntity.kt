@@ -9,8 +9,7 @@ import java.util.UUID
 class StudentEntity(
 
     @Id
-    @GeneratedValue
-    var id: UUID? = null,
+    var id: UUID = UUID.randomUUID(),
 
     @Column(nullable = false)
     var name: String,
@@ -18,7 +17,7 @@ class StudentEntity(
     @Column(nullable = false, unique = true)
     var email: String,
 
-    @Column
+    @Column(length = 20)
     var phone: String? = null,
 
     @Column(name = "birth_date")
@@ -30,10 +29,14 @@ class StudentEntity(
 ) {
 
     fun activate() {
-        this.active = true
+        if (!active) {
+            active = true
+        }
     }
 
     fun deactivate() {
-        this.active = false
+        if (active) {
+            active = false
+        }
     }
 }
